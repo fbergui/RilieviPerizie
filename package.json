@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.14",
+    "@types/express-fileupload": "^1.4.1",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/mime": "^3.0.1",
+    "@types/node": "^18.7.18",
+    "@types/nodemailer": "^6.4.7",
+    "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.10.3",
+    "cloudinary": "^1.32.0",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "generate-password": "^1.7.0",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mime": "^3.0.0",
+    "mongodb": "^4.11.0",
+    "nodemailer": "^6.9.0",
+    "nodemon": "^2.0.20",
+    "query-string": "^7.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  }
+}

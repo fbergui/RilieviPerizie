@@ -1,0 +1,4 @@
+node_modules
+.env
+static/enviroment.js
+package-lock.json

@@ -1,0 +1,21 @@
+[
+    {
+        "idOperatore": "63c81f229cd66e71b1a464ec",
+        "data": "2018-09-10T00:00:00.000Z",
+        "coords": {
+            "lat": 45.464,
+            "lng": 9.19
+        },
+        "description": "rilevamento 1",
+        "photos":[
+            {
+                "url":"",
+                "comment":"foto 1"
+            },
+            {
+                "url":"",
+                "comment":"foto 2"
+            }
+        ]
+    }
+]

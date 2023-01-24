@@ -1,0 +1,17 @@
+[{
+    "username": "admin",
+    "password": "$2y$10$HbdPwXv6kNqrVbnkRASaPuqPdT3IMXuuaZCHB5z5tjA2XmA0lbMeS",
+    "name": "Francesco",
+    "surname": "Bergui",
+    "email": "admin@perizie.com",
+    "role": "admin"
+},
+{
+    "username": "user1",
+    "password": "$2y$10$G8ffYVw4n3yo/vdWm01qj.CescGEFa.8O8OH0S9T7N14BiW8dmuNy",
+    "name": "Pippo",
+    "surname": "rossi",
+    "email": "pippo.rossi@perizie.com",
+    "role":"operator"
+}
+]
