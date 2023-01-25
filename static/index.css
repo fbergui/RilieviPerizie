@@ -9,6 +9,11 @@ table.table{
   text-align: center;
 }
 
+.align-content-end
+{
+	margin-right:20px
+}
+
 .margintop
 {
   margin-top: 20px;

@@ -46,6 +46,9 @@
             <div class="container-fluid">
                 <h1 class="navbar-brand">Gestione Utenti e Perizie</h1>
             </div>
+			<div class="align-content-end">
+			<button class="btn btn-secondary" id="btnLogout">Logout</button>
+			</div>
         </header>
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -167,45 +170,44 @@
 
                 <!--Modal event perizia-->
                 <div class="modal expanded" tabindex="-1" role="dialog" id="formPerizia">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Dati Perizia</h5>
-                                <button type="button" id="btnCloseModalPer"class="btn close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="mdlModificaPerizia">
-                                <table>
-                                    <tr>
-                                        <td><label>ID :&nbsp;</label></td>
-                                        <td><label>ID :&nbsp;</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Username :&nbsp;</label></td>
-                                        <td> <input type="text" placeholder="Username" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Data :&nbsp;</label></td>
-                                        <td><input type="text" placeholder="Data" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Coordinate :&nbsp;</label></td>
-                                        <td><input type="text" placeholder="Coordinate (separate da spazio(" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Descrizione :&nbsp;</label></td>
-                                        <td><input type="text" placeholder="Descrizione" class="form-control"></td>
-                                    </tr>
-                                    
-                                </table>
-                                <button class="btn btn-primary mt-3" id="btnConfermaPerizia">Conferma</button>
-                            </div>
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Dati Perizia</h5>
+									<button type="button" id="btnCloseModalPer"class="btn close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body" id="mdlModificaPerizia">
+									<table>
+										<tr>
+											<td><label>ID :&nbsp;</label></td>
+											<td><label>ID :&nbsp;</label></td>
+										</tr>
+										<tr>
+											<td><label>Username :&nbsp;</label></td>
+											<td> <input type="text" placeholder="Username" class="form-control"></td>
+										</tr>
+										<tr>
+											<td><label>Data :&nbsp;</label></td>
+											<td><input type="text" placeholder="Data" class="form-control"></td>
+										</tr>
+										<tr>
+											<td><label>Coordinate :&nbsp;</label></td>
+											<td><input type="text" placeholder="Coordinate (separate da spazio(" class="form-control"></td>
+										</tr>
+										<tr>
+											<td><label>Descrizione :&nbsp;</label></td>
+											<td><input type="text" placeholder="Descrizione" class="form-control"></td>
+										</tr>
+										
+									</table>
+									<button class="btn btn-primary mt-3" id="btnConfermaPerizia">Conferma</button>
+								</div>
 
-                        </div>
+							</div>
+						</div>
                     </div>
-                    </div>
-
             </div>
 
             

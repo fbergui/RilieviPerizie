@@ -16,6 +16,7 @@ import { parseUrl } from "query-string";
 import generatorePw from "generate-password";
 import nodemailer from "nodemailer";
 
+//#region CONFIG E AVVIO SERVER
 // config
 const cors = require('cors')
 const HTTP_PORT = 1337;
@@ -24,6 +25,7 @@ dotenv.config({ path: ".env" });
 cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 const app = express();
 const CONNECTION_STRING: any = process.env.connectionString;
+const MAP_KEY: any = process.env.MAP_KEY;
 const auth = JSON.parse(process.env.gmail as string)
 const DBNAME = "rilieviEPerizieDB";
 const whitelist = ["http://localhost:1337", "https://localhost:1338", "https://fberguis-server.onrender.com",
@@ -34,8 +36,10 @@ const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
 const certificate = fs.readFileSync("keys/certificate.crt", "utf8");
 const credentials = { "key": privateKey, "cert": certificate };
 const DURATA_TOKEN = 2000;
+let idOp="";
 
 //CREAZIONE E AVVIO DEL SERVER HTTP
+
 
 let httpServer = http.createServer(app);
 httpServer.listen(HTTP_PORT, () => {
@@ -63,6 +67,7 @@ const corsOptions = {
   },
   credentials: true
 };
+//#endregion
 
 //#region MIDDLEWARE
 /* *********************** (Sezione 2) Middleware ********************* */
@@ -82,7 +87,7 @@ app.use("/", express.urlencoded({ extended: true, limit: "20mb" }));
 // 4 - binary upload
 app.use("/",fileUpload({limits: { fileSize: 20 * 1024 * 1024 },}) );   // 20*1024*1024 // 20 M
 
-/*
+
 // 5 - log dei parametri
 app.use("/", function (req, res, next) {
   if (Object.keys(req.query).length > 0)
@@ -90,7 +95,7 @@ app.use("/", function (req, res, next) {
   if (Object.keys(req.body).length != 0)
     console.log("        Parametri BODY: ", req.body);
   next();
-});*/
+});
 // 6 - CORS
 app.use("/", cors(corsOptions));
 
@@ -106,31 +111,37 @@ connection.connect().then((client: MongoClient) => {
     collection.findOne({ username: regex }).then((dbUser: any) => {
         if (!dbUser) {
           res.status(401); // user o password non validi
-          res.send("User not found");
+          res.send({ris:"Utente non registrato"});
         } 
         else {
-          //confronto la password
-          bcrypt.hash(req.body.password, 10, function(err, hash) {})
-          bcrypt.compare(req.body.password,dbUser.password,(err: Error, ris: Boolean) => {
-              if (err) {
-                res.status(500);
-                res.send("Errore bcrypt " + err.message);
-                console.log(err.stack);
-              } 
-              else {
-                  if (!ris) {
-                    // password errata
-                    res.send({ris:"nok"});
-                  } 
-                  else {
-                    let token = createToken(dbUser);
-                    res.setHeader("authorization", token);
-                    // Per permettere le richieste extra domain
-                    res.setHeader("access-control-exspose-headers","authorization");
-                    res.send({ ris: "ok" });
-                  }
-              }
-            });
+
+          if(dbUser.role=="admin"){
+            //confronto la password
+            bcrypt.hash(req.body.password, 10, function(err, hash) {})
+            bcrypt.compare(req.body.password,dbUser.password,(err: Error, ris: Boolean) => {
+                if (err) {
+                  res.status(500);
+                  res.send("Errore bcrypt " + err.message);
+                  console.log(err.stack);
+                } 
+                else {
+                    if (!ris) {
+                      // password errata
+                      res.send({ris:"nok"});
+                    } 
+                    else {
+                      let token = createToken(dbUser);
+                      res.setHeader("authorization", token);
+                      // Per permettere le richieste extra domain
+                      res.setHeader("access-control-exspose-headers","authorization");
+                      res.send({ ris: "ok" });
+                    }
+                }
+              });
+          }
+          else
+          res.send({ris:"Utente non autorizzato"});
+          
         }
       }).catch((err: Error) => {
         res.status(500);
@@ -160,11 +171,7 @@ function createToken(user: any) {
   console.log("Creato nuovo token " + token);
   return token;
 }
-
-// 8. gestione Logout
-
-
-// 9. Controllo del Token
+// 8. Controllo del Token
 
 app.get("/api", function (req: any, res, next) {
   if (!req.headers["authorization"]) {
@@ -204,7 +211,19 @@ app.use("/api/", function (req: any, res: any, next: NextFunction) {
 });
 
 //#endregion
+
+//#region USER LISTENER
 /***********USER LISTENER****************/
+app.get("/api/googleAPI",function (req: any, res: any, next: NextFunction) {
+
+  res.send({key:MAP_KEY});
+
+});
+
+
+
+
+
 app.post("/api/utenti",function (req: any, res: any, next: NextFunction) {
 
   let params = req.body
@@ -237,19 +256,27 @@ app.post("/api/updatePerizie",function (req: any, res: any, next: NextFunction) 
 
   let _id = req.body._id
   let upd = req.body.upd
+  let user="";
+  console.log(upd.username)
+
+  if(upd.username == undefined)
+  user=req.body.utente
+  else
+  user=upd.username
+  
 
   let connection1 = new MongoClient(CONNECTION_STRING as string);
   connection1.connect().then((client: MongoClient) => {
   let collection1 = client.db(DBNAME).collection("users");
-  let request1 = collection1.findOne({username:upd.username})
+  let request1 = collection1.findOne({username:user})
     request1.then((data:any)=>{
       res.status(200);
       let connection = new MongoClient(CONNECTION_STRING as string);
       connection.connect().then((client: MongoClient) => {
       let collection = client.db(DBNAME).collection("perizie");
       let request = collection.updateOne({_id:new ObjectId(_id)},
-      {$set:{idOperatore:data._id,
-             data:upd.data+"T00:00:00.000Z",
+      {$set:{idOperatore:data._id.toString(),
+             data:upd.data,
              "coords.lat": upd.coords.split(" ")[0],
              "coords.lng": upd.coords.split(" ")[1],
              description: upd.description,
@@ -304,9 +331,10 @@ app.post("/api/ricercaPerizie",function (req: any, res: any, next: NextFunction)
     let request = collection.findOne(params)
     request.then((data:any)=>{
         if(data==null)
-        res.send("Utente non trovato");
+        res.send("Utente non esistente");
         else
         {
+          idOp = data._id.toString();
           let connection = new MongoClient(CONNECTION_STRING as string);
           connection.connect().then((client: MongoClient) => {
             let collection = client.db(DBNAME).collection("perizie");
@@ -462,6 +490,42 @@ app.post("/api/aggiungiUtente",function (req: any, res: any, next: NextFunction)
 
 });
 
+app.post("/api/aggiungiPerizia",function (req: any, res: any, next: NextFunction) {
+  
+
+  let pjson={
+    idOperatore: idOp,
+    data: req.body.ins.data,
+    coords: {
+      lat: req.body.ins.coords.split(" ")[0],
+      lng: req.body.ins.coords.split(" ")[1]
+    },
+    description: req.body.ins.description,
+    photos: req.body.ins.photos
+  }
+
+  let connection = new MongoClient(CONNECTION_STRING as string);
+  connection.connect().then((client: MongoClient) => {
+  let collection = client.db(DBNAME).collection("perizie");
+    let request = collection.insertOne(pjson)
+    request.then((data:any)=>{
+      res.status(200);
+      res.send({"ris": "ok insert perizie"});
+    }).catch((err: Error) => {
+      res.status(500);
+      res.send("Query error " + err.message);
+      console.log(err.stack);
+    }).finally(() => {
+      client.close();
+    });
+
+  }).catch((err: Error) => {
+    res.status(503);
+    res.send("Database service unavailable");
+  })
+
+});
+//#endregion
 
 //#region DefaultRoute
 /***********DEFAULT ROUTE****************/

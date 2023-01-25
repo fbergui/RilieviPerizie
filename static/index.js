@@ -7,22 +7,29 @@ let newPerizie = [];
 let perizieEdit = ["username","data","coords","description"];
 let strReq =" ";
 let sede;
+let map
+//let MAP_KEY
 
 $(document).ready(function () {
 
+   /* inviaRichiesta("GET", "/api/googleAPI").fail(errore).done(function (data) {
+        MAP_KEY = data.key;
+    });*/
 
     let scriptGoogle = document.createElement('script');
     scriptGoogle.type = 'text/javascript';
     scriptGoogle.src = urlGoogle + '/js?libraries=geometry&v=3&key=' + MAP_KEY;
     document.body.appendChild(scriptGoogle);
-    
+
     let _alertPw = $("#login>div:eq(3)");
     let _btnLogin = $("#login>div:eq(4)>button");
     let _txtPwLogin = $("#login>div:eq(1)>input");
     let _txtUserLogin = $("#login>div:eq(0)>input");
     let _chkShowPw = $("#login>div:eq(2)>input");
-    _alertPw.hide();
+
     
+
+    _alertPw.hide();
     _txtPwLogin.val("admin");
     _txtUserLogin.val("admin");
     let _tableUtenti = $("#mainTable>tbody");
@@ -33,38 +40,20 @@ $(document).ready(function () {
     caricaPerizie(false);
 
     
-    /******************TEST**********************/
-
+    
     $("#main").hide();
     $("#login").show();
     $("#main>div:eq(0)").show();
     $("#main>div:eq(1)").hide();
 
 
-    /***************************************************/
-    /*********************Generatore********************/
-
-   /* const names = ["John", "Jane", "Bob", "Emily", "Jessica", "Michael", "Sarah", "David", "Emily", "Jacob", "Nicholas", "Isabella", "Ethan", "Aria", "Madison", "Matthew", "Olivia", "Joshua", "Hannah"];
-    const surnames = ["Smith", "Doe", "Williams", "Johnson", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson"];
-    const usernames = ["johndoe23", "katiejones", "chrisb87", "bobbym44", "ashleyt96", "mattd43", "sarahm22", "jenniferg", "davids57", "mikew88", "juliak21", "tylerr11", "emmam33", "bradpitt", "jenniferl", "chrisw77", "jimmyj96", "samanthab", "roberts44", "jennifert"];
-
-    const utenti = [];
-
-    for (let i = 0; i < 50; i++) {
-        let name = names[i%20];
-        let surname = surnames[i%20];
-        utenti.push({
-            "username": usernames[i] || "user"+i,
-            "password": usernames[i] || "user"+i,
-            "name": name,
-            "surname": surname,
-            "email": name+"."+surname+"@perizie.it",
-            "role": "user"
-        });
-    }*/
-    
-
-    /***************************************************/
+	$("#btnLogout").on("click", function () {
+		localStorage.removeItem("token");
+		//window.location.href = "login.html";
+		$("#main").hide();
+		$("#login").show();
+	});
+  
 
     //Change on Utenti and Perizie tabs
     $(".nav-tabs>li:eq(0)>a").on("click",function () {
@@ -96,8 +85,9 @@ $(document).ready(function () {
 
                 caricaUtenti();
             }
-            else
+            else if(data.ris=="nok")
             _alertPw.show();
+
         });
 
     });
@@ -150,13 +140,13 @@ $(document).ready(function () {
     });
 
     function caricaMappa() {
-        let _mappa = $("#mdlMap")[0]
+        
 
         $('#formMappa').modal('show');
-        
-        sede = new google.maps.LatLng(44.55595580490406, 7.736023895321979);
+        let _mappa = $("#mdlMap")[0]
         let mapOptions = {'center': sede,'zoom': 17,'width':700};
-        let map = new google.maps.Map(_mappa, mapOptions);
+        sede = new google.maps.LatLng(44.55595580490406, 7.736023895321979);
+        map = new google.maps.Map(_mappa, mapOptions);
         map.setCenter(sede);
         new google.maps.Marker({
             map: map,
@@ -185,7 +175,7 @@ $(document).ready(function () {
                 content: `          
                 <hr>
                 <div >
-                <p  class = "infoWindow"><b>Data perizia:</b> ${perizia.data.split("T")[0]}</p>
+                <p  class = "infoWindow"><b>Data perizia:</b> ${perizia.data}</p>
                 <p  class = "infoWindow"><b>Perito utente:</b> ${perizia.idOperatore}</p>
                 <p  class = "infoWindow"><b>Descrizione:</b> ${perizia.description}</p>
                 <p  class = "infoWindow"><b>Foto perizia:</b><br>`+sPhoto+`
@@ -210,9 +200,9 @@ $(document).ready(function () {
 
                 sPhoto="";
                });
-
-                return map;
         }
+
+        return map;
     }
 
     $("#btnMappa").on("click",function () {
@@ -288,7 +278,7 @@ $(document).ready(function () {
                         let _tr = $("<tr>").appendTo(_tablePerizie);
                         $("<td>").text(perizia._id).appendTo(_tr)
                         $("<td>").text(perizia.idOperatore).appendTo(_tr)
-                        $("<td>").text(perizia.data.split("T")[0]).appendTo(_tr)
+                        $("<td>").text(perizia.data).appendTo(_tr)
                         $("<td>").text(perizia.coords.lat +" "+ perizia.coords.lng).appendTo(_tr)
                         $("<td>").text(perizia.description).appendTo(_tr)
                         let _td = $("<td>").appendTo(_tr)
@@ -298,7 +288,7 @@ $(document).ready(function () {
 
                         $("#mdlModificaPerizia>table>tbody>tr:eq(0)>td:eq(1)>label").text(perizia._id);
                         $("#mdlModificaPerizia>table>tbody>tr:eq(1)>td:eq(1)>input").val(perizia.idOperatore)
-                        $("#mdlModificaPerizia>table>tbody>tr:eq(2)>td:eq(1)>input").val(perizia.data.split("T")[0])
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(2)>td:eq(1)>input").val(perizia.data)
                         $("#mdlModificaPerizia>table>tbody>tr:eq(3)>td:eq(1)>input").val(perizia.coords.lat +" "+ perizia.coords.lng)
                         $("#mdlModificaPerizia>table>tbody>tr:eq(4)>td:eq(1)>input").val(perizia.description)
                         let i=0;
@@ -325,6 +315,7 @@ $(document).ready(function () {
                         _td = $("<td>").appendTo(_tr)
                         $("<button>").addClass("btn btn-primary").text("Vedi Percorso")
                         .on("click",function () {
+                            
                             let map = caricaMappa();
 
                             let destinazione = new google.maps.LatLng(parseFloat(perizia.coords.lat), parseFloat(perizia.coords.lng));
@@ -354,8 +345,25 @@ $(document).ready(function () {
                                     directionsRenderer.setDirections(directionsRoutes)
                                 }
                                 let tempo = google.maps.geometry.spherical.computeDistanceBetween (sede, destinazione);
-                                alert("Tempo stimato: "+Math.floor(tempo/60) +" minuti")
-                                });
+
+                                let str="";
+                                let giorni = Math.floor(tempo / (3600*24));
+                                tempo  -= giorni*3600*24;
+                                let ore =  Math.floor(tempo / 3600);
+                                tempo  -= ore*3600;
+                                let minuti = Math.floor(tempo / 60);
+                                tempo  -= minuti*60;
+
+                                if(giorni>0)
+                                str +=giorni+" giorni ";
+                                if(ore>0)
+                                str +=ore+" ore ";
+
+                                str +=minuti+" minuti";
+
+                                alert("Tempo tragitto: "+ str);
+
+                            });
                                 
                                 
  

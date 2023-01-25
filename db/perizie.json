@@ -1,21 +1,43 @@
-[
+[{
+  "_id": {
+    "$oid": "63c81feb9cd66e71b1a464f0"
+  },
+  "idOperatore": "63cec338d740dd5ed20442be",
+  "data": "2020-10-12",
+  "coords": {
+    "lat": "44.55922755887643",
+    "lng": "7.734619256983938"
+  },
+  "description": "Mercatò Fossano",
+  "photos": [
     {
-        "idOperatore": "63c81f229cd66e71b1a464ec",
-        "data": "2018-09-10T00:00:00.000Z",
-        "coords": {
-            "lat": 45.464,
-            "lng": 9.19
-        },
-        "description": "rilevamento 1",
-        "photos":[
-            {
-                "url":"",
-                "comment":"foto 1"
-            },
-            {
-                "url":"",
-                "comment":"foto 2"
-            }
-        ]
+      "comment": "entrata",
+      "url": "https://res.cloudinary.com/dlpn4kwtj/image/upload/v1674532164/RilieviPerizie/mercato_ig7xxv.jpg"
+    },
+    {
+      "comment": "uscita",
+      "url": "https://res.cloudinary.com/dlpn4kwtj/image/upload/v1674532164/RilieviPerizie/marcato2_agmxzy.jpg"
     }
-]
+  ]
+},{
+  "_id": {
+    "$oid": "63cf2de09a9fafbfd379a17b"
+  },
+  "idOperatore": "63c81f229cd66e71b1a464eb",
+  "data": "2017-10-09",
+  "coords": {
+    "lat": "44.557561018893765",
+    "lng": "7.7120887010832115"
+  },
+  "description": "McDonald's",
+  "photos": [
+    {
+      "comment": "McDrive",
+      "url": "https://res.cloudinary.com/dlpn4kwtj/image/upload/v1674531823/RilieviPerizie/mc1_c6tqpv.jpg"
+    },
+    {
+      "comment": "foto 2",
+      "url": "https://res.cloudinary.com/dlpn4kwtj/image/upload/v1674531823/RilieviPerizie/mc2_tvesok.jpg"
+    }
+  ]
+}]

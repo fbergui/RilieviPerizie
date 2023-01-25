@@ -1,17 +1,491 @@
 [{
-    "username": "admin",
-    "password": "$2y$10$HbdPwXv6kNqrVbnkRASaPuqPdT3IMXuuaZCHB5z5tjA2XmA0lbMeS",
-    "name": "Francesco",
-    "surname": "Bergui",
-    "email": "admin@perizie.com",
-    "role": "admin"
-},
-{
-    "username": "user1",
-    "password": "$2y$10$G8ffYVw4n3yo/vdWm01qj.CescGEFa.8O8OH0S9T7N14BiW8dmuNy",
-    "name": "Pippo",
-    "surname": "rossi",
-    "email": "pippo.rossi@perizie.com",
-    "role":"operator"
-}
-]
+  "_id": {
+    "$oid": "63c81f229cd66e71b1a464eb"
+  },
+  "username": "admin",
+  "password": "$2y$10$HbdPwXv6kNqrVbnkRASaPuqPdT3IMXuuaZCHB5z5tjA2XmA0lbMeS",
+  "name": "Francesco",
+  "surname": "Bergui",
+  "email": "f.bergui.1268@vallauri.edu",
+  "role": "admin"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442be"
+  },
+  "username": "johndoe23",
+  "password": "$2a$10$PagoAgAtqIm58yz7EythjuXgfNQO8wEKL9AD3o3tx2IBuuDb3w.8.",
+  "name": "John",
+  "surname": "Smith",
+  "email": "John.Smith@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442bf"
+  },
+  "username": "katiejones",
+  "password": "$2a$10$UtFPDXTmpUIo3WLrcNIXx.S8oPTTWMxWaR3Pooy2X8Du8bBpHF1da",
+  "name": "Jane",
+  "surname": "Doe",
+  "email": "Jane.Doe@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c0"
+  },
+  "username": "chrisb87",
+  "password": "$2a$10$sgx/bXwEFxb/HtjFLMHtyu4tlEqhK4k73I9RKFi5rjA65T4DEh26u",
+  "name": "Bob",
+  "surname": "Williams",
+  "email": "Bob.Williams@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c1"
+  },
+  "username": "bobbym44",
+  "password": "$2a$10$Hmze5GUhhYC9hGwpWhQhQe2HOBzyp0oE.79uTklkc.koe7Dbqz2D6",
+  "name": "Emily",
+  "surname": "Johnson",
+  "email": "Emily.Johnson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c2"
+  },
+  "username": "ashleyt96",
+  "password": "$2a$10$TR.3SXtV/b/Csw2HMXO77eA5eTRIJBaEdpaNP4pLnF8InTk3C6iEu",
+  "name": "Jessica",
+  "surname": "Brown",
+  "email": "Jessica.Brown@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c3"
+  },
+  "username": "mattd43",
+  "password": "$2a$10$i2xlz08yARcW2IPAmp0UXuOeEuImnsLpJ79gn/Ip9WhpCP.wAmcw2",
+  "name": "Michael",
+  "surname": "Jones",
+  "email": "Michael.Jones@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c4"
+  },
+  "username": "sarahm22",
+  "password": "$2a$10$gHVbdArVkpSZJtMKPpncKuCu0JF0z5zkCBBDVJbsQhxsXZClDkMCm",
+  "name": "Sarah",
+  "surname": "Miller",
+  "email": "Sarah.Miller@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c5"
+  },
+  "username": "jenniferg",
+  "password": "$2a$10$KAK3IExXThhw8cOixwYOIe6/O2Cob3FiKXVArF692/gbBQBmg27ye",
+  "name": "David",
+  "surname": "Davis",
+  "email": "David.Davis@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c6"
+  },
+  "username": "davids57",
+  "password": "$2a$10$Rd8IV8507KYfLyqGoam5DO9my.sBz6NkhNWoya5fOMss75yXiaowG",
+  "name": "Emily",
+  "surname": "Garcia",
+  "email": "Emily.Garcia@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c7"
+  },
+  "username": "mikew88",
+  "password": "$2a$10$SUjjuASRSUwiXmy9wIJYZusRgXO72zzbE8TAhYt2WmhrnaWIw3VP2",
+  "name": "Jacob",
+  "surname": "Rodriguez",
+  "email": "Jacob.Rodriguez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c8"
+  },
+  "username": "juliak21",
+  "password": "$2a$10$2gEXTfzZW/VqgQWvfmuVDeRI8/l2CetJuJkCeX5WZlbgYVyayWguW",
+  "name": "Nicholas",
+  "surname": "Martinez",
+  "email": "Nicholas.Martinez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442c9"
+  },
+  "username": "tylerr11",
+  "password": "$2a$10$UqxiK1bSjaH8yo8nC2hc/emdc9fSg6tZbQ0.u9VshH7EJap2qw7SO",
+  "name": "Isabella",
+  "surname": "Anderson",
+  "email": "Isabella.Anderson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ca"
+  },
+  "username": "emmam33",
+  "password": "$2a$10$P/92IZ4oiOLv2HCmerBMX.Tr7suMkRG19OpmJ2aTmJj9q7RwcOLvy",
+  "name": "Ethan",
+  "surname": "Taylor",
+  "email": "Ethan.Taylor@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442cb"
+  },
+  "username": "bradpitt",
+  "password": "$2a$10$i9aF4vhlEOm4odkmTMBAO.8./L92ZyPUa9jUDOsF/0XLlxaNtzQdS",
+  "name": "Aria",
+  "surname": "Thomas",
+  "email": "Aria.Thomas@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442cc"
+  },
+  "username": "jenniferl",
+  "password": "$2a$10$9EDscHqhJi3QsM/7FNYgA.AIsvYzzEiZ/88MU4MwcsuQr.brMWjTy",
+  "name": "Madison",
+  "surname": "Hernandez",
+  "email": "Madison.Hernandez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442cd"
+  },
+  "username": "chrisw77",
+  "password": "$2a$10$gShlv4T0/dRy.ggLIa.l0uu71PAnQZ5Ui/o1fHfr41NUQESTWHApq",
+  "name": "Matthew",
+  "surname": "Moore",
+  "email": "Matthew.Moore@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ce"
+  },
+  "username": "jimmyj96",
+  "password": "$2a$10$84t83CVQ0lz32qhVPtH.vOp68MNWZ.Y1eCFujViIZt3OIggebWubO",
+  "name": "Olivia",
+  "surname": "Martin",
+  "email": "Olivia.Martin@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442cf"
+  },
+  "username": "samanthab",
+  "password": "$2a$10$eQ6DC2KxuncCU065uRaTceVtpW84tS1R86KUnCqNJBCcIHLp1s62W",
+  "name": "Joshua",
+  "surname": "Jackson",
+  "email": "Joshua.Jackson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d0"
+  },
+  "username": "roberts44",
+  "password": "$2a$10$XFTxD0fuRyx7UvEvZ6ITW.jtvo9MGCKQm4kcfLYM1MMJW/uODUAp.",
+  "name": "Hannah",
+  "surname": "Thompson",
+  "email": "Hannah.Thompson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d2"
+  },
+  "username": "user20",
+  "password": "$2a$10$TBrMptfX9XbcHaP0aTMlCuWxwsioFs8FrQDJJ5RTbqsVmSOJAyJxK",
+  "name": "John",
+  "surname": "Smith",
+  "email": "John.Smith@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d3"
+  },
+  "username": "user21",
+  "password": "$2a$10$ckd5740nD5dLaiKku7GfS.GLnrKGUjE4c9hdK6jjALOTl1QNt0yDe",
+  "name": "Jane",
+  "surname": "Doe",
+  "email": "Jane.Doe@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d4"
+  },
+  "username": "user22",
+  "password": "$2a$10$vxyGzH3mz9KHaJXqttjw6uDkN5Wnwn9U81brPGgNN6rdWvdYiJs1O",
+  "name": "Bob",
+  "surname": "Williams",
+  "email": "Bob.Williams@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d5"
+  },
+  "username": "user23",
+  "password": "$2a$10$vItyXqwEvScXEZuJcJjGFOgV9OMJl..Xj6.B/sCX8axjxyEOlGfdW",
+  "name": "Emily",
+  "surname": "Johnson",
+  "email": "Emily.Johnson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d6"
+  },
+  "username": "user24",
+  "password": "$2a$10$2soyxoM0S.J91MIJqjlyouE0.MoaXpDs4.UE.cKfu8RdfsS72pLzm",
+  "name": "Jessica",
+  "surname": "Brown",
+  "email": "Jessica.Brown@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d7"
+  },
+  "username": "user25",
+  "password": "$2a$10$8.Xfb3ZfBMVKqMv5mSfY3e63wp3bvcyW1SQcU7pu8QGmpOA1npv0.",
+  "name": "Michael",
+  "surname": "Jones",
+  "email": "Michael.Jones@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d8"
+  },
+  "username": "user26",
+  "password": "$2a$10$lCT5HGZE/2xY5w5fzJtVye0Bi0qdlngAkLbn2rR7rOhpgIjfS1jAC",
+  "name": "Sarah",
+  "surname": "Miller",
+  "email": "Sarah.Miller@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442d9"
+  },
+  "username": "user27",
+  "password": "$2a$10$pS9XgOeDE.SG2aTkxQnHl.1h5BaZh8oTQWG4UwEvLl2kO5DCyOo5q",
+  "name": "David",
+  "surname": "Davis",
+  "email": "David.Davis@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442da"
+  },
+  "username": "user28",
+  "password": "$2a$10$4N3YP4xh52jBqywWyFTX5eNZTLBAe0pfzAu.Od4S/tBGpOMAUSUSS",
+  "name": "Emily",
+  "surname": "Garcia",
+  "email": "Emily.Garcia@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442db"
+  },
+  "username": "user29",
+  "password": "$2a$10$Q1MpwZQAp5Tao82lzk58uOgMzlfO0bOS2dV8Ye9cbJ4HgvZ1AXxuu",
+  "name": "Jacob",
+  "surname": "Rodriguez",
+  "email": "Jacob.Rodriguez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442dc"
+  },
+  "username": "user30",
+  "password": "$2a$10$ubz79N6LTtGnwqtVQOrRc.kUzUONkdzlECVuqG081EjpsLQPLICG.",
+  "name": "Nicholas",
+  "surname": "Martinez",
+  "email": "Nicholas.Martinez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442dd"
+  },
+  "username": "user31",
+  "password": "$2a$10$Ei/NbZKnVhVu5u7Zcf6VdOhnlmUZkufVHPcKbuMlokpOUZKS/UOhi",
+  "name": "Isabella",
+  "surname": "Anderson",
+  "email": "Isabella.Anderson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442de"
+  },
+  "username": "user32",
+  "password": "$2a$10$85pahDsoL4CfxuJLmfWhEu84o0q3P29z8JNEd6BocC8ler6bRSWue",
+  "name": "Ethan",
+  "surname": "Taylor",
+  "email": "Ethan.Taylor@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442df"
+  },
+  "username": "user33",
+  "password": "$2a$10$BSdQz4mzUTXsnmrEBlfjeeBpZHLbs2wKx7ugQDy1Z9nQMg1.vm/gu",
+  "name": "Aria",
+  "surname": "Thomas",
+  "email": "Aria.Thomas@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e0"
+  },
+  "username": "user34",
+  "password": "$2a$10$7cw80JbxLE1yHPo6hZMys.8DSdV8MAQIIxERaGJGWUm/RCdoag4AK",
+  "name": "Madison",
+  "surname": "Hernandez",
+  "email": "Madison.Hernandez@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e1"
+  },
+  "username": "user35",
+  "password": "$2a$10$DxOsQO3YnVPU7u5QFC52IOHMAV9JWOjPXwZxz9kEzEuYHrPE1ux6C",
+  "name": "Matthew",
+  "surname": "Moore",
+  "email": "Matthew.Moore@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e2"
+  },
+  "username": "user36",
+  "password": "$2a$10$TuX4J8VMhPClJs9m5sxsweLYBp1yWyK6SpYlU69T0QwVYQ8tPv6Gu",
+  "name": "Olivia",
+  "surname": "Martin",
+  "email": "Olivia.Martin@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e3"
+  },
+  "username": "user37",
+  "password": "$2a$10$TNme8a25pddP7D6VmY4UNOdAeyyjIw93F.ohF.GsCb7hzIX/KJqXW",
+  "name": "Joshua",
+  "surname": "Jackson",
+  "email": "Joshua.Jackson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e4"
+  },
+  "username": "user38",
+  "password": "$2a$10$kye2wRQduZ24kbli2c5cqeg/8QmJtA2VvkiRJYpyaY82krgXPDRji",
+  "name": "Hannah",
+  "surname": "Thompson",
+  "email": "Hannah.Thompson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e6"
+  },
+  "username": "user40",
+  "password": "$2a$10$203mo.sRDL3Lkl1tuF/VmumD08Ft5GTs3XxBzgxmkWQkpuSlhnvAm",
+  "name": "John",
+  "surname": "Smith",
+  "email": "John.Smith@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e7"
+  },
+  "username": "user41",
+  "password": "$2a$10$UtIQX//eTXT.7RHluoNuYOb8lysvgilRxHw23Ae9cDq7lh.0zRqcS",
+  "name": "Jane",
+  "surname": "Doe",
+  "email": "Jane.Doe@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e8"
+  },
+  "username": "user42",
+  "password": "$2a$10$p9v6Hx4iv1XROPuBBLRg1.wCwkGB8yYe5z0FnkbUG.4BywbPgLMAa",
+  "name": "Bob",
+  "surname": "Williams",
+  "email": "Bob.Williams@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442e9"
+  },
+  "username": "user43",
+  "password": "$2a$10$YQ0CC1zej4y2hZOe.5EGzebLBWJLusOvSf9JOl02ZQX754Jysi/a6",
+  "name": "Emily",
+  "surname": "Johnson",
+  "email": "Emily.Johnson@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ea"
+  },
+  "username": "user44",
+  "password": "$2a$10$O0kMGlIQIjEsRPfmbB/6Ku7Wqw2ap5BfKSF1vBeYH2k6UxXFGZvPm",
+  "name": "Jessica",
+  "surname": "Brown",
+  "email": "Jessica.Brown@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442eb"
+  },
+  "username": "user45",
+  "password": "$2a$10$Bo2awZ6cvIFEvHLp34QL6uoWpNlf3ckxJPhCj.cH2vdA2PYyWd1oq",
+  "name": "Michael",
+  "surname": "Jones",
+  "email": "Michael.Jones@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ec"
+  },
+  "username": "user46",
+  "password": "$2a$10$cXkZ81ZLnzyTS60lYidWp.mIAwx.QUfm9/MfVSfTiT0vWAr991iXq",
+  "name": "Sarah",
+  "surname": "Miller",
+  "email": "Sarah.Miller@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ed"
+  },
+  "username": "user47",
+  "password": "$2a$10$OqcSL6Ncyd/LE/dwvKrfcu2HsGGQAR53oiAYAvd5TRG2YntOq68g2",
+  "name": "David",
+  "surname": "Davis",
+  "email": "David.Davis@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ee"
+  },
+  "username": "user48",
+  "password": "$2a$10$iE/9P5sYXx2IfVpvRAMJT.H9h5FepFPZcGveu6BNQdYqVjns9wTae",
+  "name": "Emily",
+  "surname": "Garcia",
+  "email": "Emily.Garcia@perizie.it",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "63cec338d740dd5ed20442ef"
+  },
+  "username": "user49",
+  "password": "$2a$10$QzpHzqfyTCW3WzeRJa2iiOh9YzLsvyN2NU.CQAvFyMeRbyJ9bg05y",
+  "name": "Jacob",
+  "surname": "Rodriguez",
+  "email": "Jacob.Rodriguez@perizie.it",
+  "role": "user"
+}]
