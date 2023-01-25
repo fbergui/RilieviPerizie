@@ -21,6 +21,7 @@ const cors = require('cors')
 const HTTP_PORT = 1337;
 const HTTPS_PORT = 1338
 dotenv.config({ path: ".env" });
+cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 const app = express();
 const CONNECTION_STRING: any = process.env.connectionString;
 const auth = JSON.parse(process.env.gmail as string)
@@ -232,13 +233,127 @@ app.post("/api/utenti",function (req: any, res: any, next: NextFunction) {
 
 });
 
+app.post("/api/updatePerizie",function (req: any, res: any, next: NextFunction) {
+
+  let _id = req.body._id
+  let upd = req.body.upd
+
+  let connection1 = new MongoClient(CONNECTION_STRING as string);
+  connection1.connect().then((client: MongoClient) => {
+  let collection1 = client.db(DBNAME).collection("users");
+  let request1 = collection1.findOne({username:upd.username})
+    request1.then((data:any)=>{
+      res.status(200);
+      let connection = new MongoClient(CONNECTION_STRING as string);
+      connection.connect().then((client: MongoClient) => {
+      let collection = client.db(DBNAME).collection("perizie");
+      let request = collection.updateOne({_id:new ObjectId(_id)},
+      {$set:{idOperatore:data._id,
+             data:upd.data+"T00:00:00.000Z",
+             "coords.lat": upd.coords.split(" ")[0],
+             "coords.lng": upd.coords.split(" ")[1],
+             description: upd.description,
+             photos:upd.photos
+
+            }})
+      request.then((data:any)=>{
+        res.status(200);
+        res.send({ris:"ok"})
+        
+      }).catch((err: Error) => {
+        res.status(500);
+        res.send("Query error " + err.message);
+        console.log(err.stack);
+      }).finally(() => {
+        client.close();
+      });
+
+      }).catch((err: Error) => {
+        res.status(503);
+        res.send("Database service unavailable");
+      });
+
+
+      
+    }).catch((err: Error) => {
+      res.status(500);
+      res.send("Query error " + err.message);
+      console.log(err.stack);
+    }).finally(() => {
+      client.close();
+    });
+
+    }).catch((err: Error) => {
+      res.status(503);
+      res.send("Database service unavailable");
+    });
+
+
+  
+});
+
+app.post("/api/ricercaPerizie",function (req: any, res: any, next: NextFunction) {
+
+  let params = req.body
+  console.log(params);
+  
+  
+  let connection = new MongoClient(CONNECTION_STRING as string);
+  connection.connect().then((client: MongoClient) => {
+  let collection = client.db(DBNAME).collection("users");
+    let request = collection.findOne(params)
+    request.then((data:any)=>{
+        if(data==null)
+        res.send("Utente non trovato");
+        else
+        {
+          let connection = new MongoClient(CONNECTION_STRING as string);
+          connection.connect().then((client: MongoClient) => {
+            let collection = client.db(DBNAME).collection("perizie");
+            let request = collection.find({idOperatore: data._id.toString() }).toArray()
+            request.then((perizie:any)=>{
+              let newPerizie:any = [];
+              res.status(200);
+              for (let perizia of perizie) {
+                perizia.idOperatore = data.username
+                newPerizie.push(perizia)
+              }
+              res.send(newPerizie);
+            }).catch((err: Error) => {
+              res.status(500);
+              res.send("Query error " + err.message);
+              console.log(err.stack);
+            }).finally(() => {
+              client.close();
+            });
+  
+          }).catch((err: Error) => {
+            res.status(503);
+            res.send("Database service unavailable");
+          });
+        }
+      
+    }).catch((err: Error) => {
+      res.status(500);
+      res.send("Query error " + err.message);
+      console.log(err.stack);
+    }).finally(() => {
+      client.close();
+    });
+
+  }).catch((err: Error) => {
+    res.status(503);
+    res.send("Database service unavailable");
+  });
+
+});
+
 app.post("/api/perizie",function (req: any, res: any, next: NextFunction) {
 
   let params = req.body
   console.log(params);
   
   
-
   let connection = new MongoClient(CONNECTION_STRING as string);
   connection.connect().then((client: MongoClient) => {
   let collection = client.db(DBNAME).collection("perizie");

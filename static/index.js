@@ -2,13 +2,18 @@
 
 const urlGoogle = "https://maps.googleapis.com/maps/api";
 let allPerizie = [];
+let sPhoto = "";
+let newPerizie = [];
+let perizieEdit = ["username","data","coords","description"];
+let strReq =" ";
+let sede;
 
 $(document).ready(function () {
 
 
     let scriptGoogle = document.createElement('script');
     scriptGoogle.type = 'text/javascript';
-    scriptGoogle.src = urlGoogle + '/js?v=3&key=' + MAP_KEY;
+    scriptGoogle.src = urlGoogle + '/js?libraries=geometry&v=3&key=' + MAP_KEY;
     document.body.appendChild(scriptGoogle);
     
     let _alertPw = $("#login>div:eq(3)");
@@ -25,17 +30,15 @@ $(document).ready(function () {
 
     
     caricaUtenti();
-    caricaPerizie();
+    caricaPerizie(false);
 
-    //$("#main>div:eq(0)").show();
-    //$("#main>div:eq(1)").hide();
     
     /******************TEST**********************/
 
-    $("#main").show();
-    $("#login").hide();
-    $("#main>div:eq(0)").hide();
-    $("#main>div:eq(1)").show();
+    $("#main").hide();
+    $("#login").show();
+    $("#main>div:eq(0)").show();
+    $("#main>div:eq(1)").hide();
 
 
     /***************************************************/
@@ -74,7 +77,6 @@ $(document).ready(function () {
     })
 
 
-
     _chkShowPw.on("click", function () {
         _txtPwLogin.attr("type", _chkShowPw.prop("checked") ? "text" : "password");
     });
@@ -102,6 +104,14 @@ $(document).ready(function () {
 
     $("#cmbRicercaUtenti").on("change",function () {
         
+    });
+
+
+    $("#divRicercaPerizia>button").on("click",function () {
+        if($("#divRicercaPerizia>input").val()!='')
+        caricaPerizie(true,{username:$("#divRicercaPerizia>input").val()});
+        else
+        caricaPerizie(false)
     });
 
     $("#btnConferma").on("click",function () {
@@ -135,14 +145,17 @@ $(document).ready(function () {
     $("#btnCloseModalMappa").on("click", function () {
         $("#formMappa").modal('hide');
     });
+    $("#btnCloseModalPer").on("click", function () {
+        $("#formPerizia").modal('hide');
+    });
 
-    $("#btnMappa").on("click",function () {
+    function caricaMappa() {
         let _mappa = $("#mdlMap")[0]
 
         $('#formMappa').modal('show');
         
-        let sede = new google.maps.LatLng(44.55595580490406, 7.736023895321979);
-        let mapOptions = {'center': sede,'zoom': 17};
+        sede = new google.maps.LatLng(44.55595580490406, 7.736023895321979);
+        let mapOptions = {'center': sede,'zoom': 17,'width':700};
         let map = new google.maps.Map(_mappa, mapOptions);
         map.setCenter(sede);
         new google.maps.Marker({
@@ -150,9 +163,11 @@ $(document).ready(function () {
             position: sede
         });
 
+        let lastWindow=null;
+
         for (let perizia of allPerizie) {
 
-            console.log(allPerizie)
+            sPhoto="";
             let position = new google.maps.LatLng(perizia.coords.lat, perizia.coords.lng);
 
             let marker = new google.maps.Marker({
@@ -160,39 +175,75 @@ $(document).ready(function () {
                 position: position
             });
 
+            
+
+            for (let photo of perizia.photos) {
+              sPhoto += `<br> <img src="${photo.url}"> <p class = "infoWindow"> Descrizione : ${photo.comment}</p>`
+            }
+
             let infoWindowOption = {
                 content: `          
                 <hr>
                 <div >
-                <p  class = "infoWindow"><b>Data Perizia:</b> ${perizia.data.split("T")[0]}</p>
-                <p  class = "infoWindow"><b>Perito:</b> ${perizia.idOperatore}</p>
+                <p  class = "infoWindow"><b>Data perizia:</b> ${perizia.data.split("T")[0]}</p>
+                <p  class = "infoWindow"><b>Perito utente:</b> ${perizia.idOperatore}</p>
                 <p  class = "infoWindow"><b>Descrizione:</b> ${perizia.description}</p>
-                <p  class = "infoWindow"><b>Descrizione:</b> ${perizia.description}</p>
+                <p  class = "infoWindow"><b>Foto perizia:</b><br>`+sPhoto+`
                 </div>
                 <hr>
-                <button class='percorso'>Visualizza percorso</button>
                 <style>
                 .infoWindow {
+                    margin-top:20px;
                     font-family: 'Roboto', sans-serif;
                     color : #000;
                 }
                 </style>
                 `,
-                width: 150,
+                width: 700,
               };
         
               let infoWindow = new google.maps.InfoWindow(infoWindowOption);
               marker.addListener("click", function () {
-                infoWindow.open(map, marker);
+                if (lastWindow) lastWindow.close();
+                infoWindow.open(map, this);
+                lastWindow=infoWindow;
+
+                sPhoto="";
                });
-            
+
+                return map;
         }
+    }
 
-        
+    $("#btnMappa").on("click",function () {
+        caricaMappa();
+    })
 
-        
-        
-        
+    $("#btnConfermaPerizia").on("click",function () {
+      let _id =  $("#mdlModificaPerizia>table>tbody>tr:eq(0)>td:eq(1)>label").text()
+
+      let upd = {photos:[]}
+      let i =0;
+
+      $('input', $('#mdlModificaPerizia')).each(function () {
+        if(i==4 || i==6)
+        {
+            upd.photos.push({"comment":$(this).val(),"url": perizieEdit[i+1]})
+            i++;
+        }
+        else
+        upd[perizieEdit[i]] = $(this).val();
+        i++;
+
+        });
+      let req = inviaRichiesta("POST","/api/updatePerizie",{_id:_id, upd:upd})
+      req.fail(errore);
+      req.done(function (data) {
+        console.log(data)
+        alert("Modifica completata")
+        $('#formPerizia').modal('hide');
+        caricaPerizie(false);
+      })
     })
 
 
@@ -216,10 +267,22 @@ $(document).ready(function () {
                 })
     }
 
-    function caricaPerizie() {
-        let reqq = inviaRichiesta("POST", "/api/perizie", {});
+    function caricaPerizie(ricerca,params) {
+        _tablePerizie.empty();
+
+        if(ricerca == false)
+        {
+            strReq = "/api/perizie";
+            params={};
+        }
+        else
+        {
+            strReq = "/api/ricercaPerizie";
+        }
+        let reqq = inviaRichiesta("POST", strReq ,params);
                 reqq.fail(errore);
                 reqq.done(function (data) {
+                    
                     allPerizie = data;
                     for (let perizia of data) {
                         let _tr = $("<tr>").appendTo(_tablePerizie);
@@ -229,14 +292,81 @@ $(document).ready(function () {
                         $("<td>").text(perizia.coords.lat +" "+ perizia.coords.lng).appendTo(_tr)
                         $("<td>").text(perizia.description).appendTo(_tr)
                         let _td = $("<td>").appendTo(_tr)
-                        $("<button>").addClass("btn btn-primary").text("Visualizza foto").appendTo(_td)
+                        $("<button>").addClass("btn btn-primary").text("Modifica")
+                        .on("click",function () {
+                            $('#formPerizia').modal('show');
+
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(0)>td:eq(1)>label").text(perizia._id);
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(1)>td:eq(1)>input").val(perizia.idOperatore)
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(2)>td:eq(1)>input").val(perizia.data.split("T")[0])
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(3)>td:eq(1)>input").val(perizia.coords.lat +" "+ perizia.coords.lng)
+                        $("#mdlModificaPerizia>table>tbody>tr:eq(4)>td:eq(1)>input").val(perizia.description)
+                        let i=0;
+                        for (let photo of perizia.photos) {
+                            i++;
+                            if($("#mdlModificaPerizia>table>tbody tr").length > perizia.photos.length+4)
+                            {
+                                for(let i=0;i<perizia.photos.length;i++)
+                                {
+                                    $("#mdlModificaPerizia>table>tbody>tr:last-child").remove();
+                                }
+                                perizieEdit=["username","data","coords","description"];
+                            }
+                            perizieEdit.push(photo.comment)
+                            perizieEdit.push(photo.url)
+                            let _tr = $("<tr>").appendTo($("#mdlModificaPerizia>table>tbody"))
+                            let _td1 = $("<td>").appendTo(_tr)
+                            let _td2=  $("<td>").appendTo(_tr)
+                            $("<label>").text("Immagine N°"+i+":").appendTo(_td1)
+                            $("<input>").prop({type:"text",class:"form-control"}).val(photo.comment).appendTo(_td2)
+                        }
+                            
+                        }).appendTo(_td)
                         _td = $("<td>").appendTo(_tr)
-                        $("<button>").addClass("btn btn-primary").text("Modifica").appendTo(_td)
-                        _td = $("<td>").appendTo(_tr)
-                        $("<button>").addClass("btn btn-primary").text("Mostra percorso").appendTo(_td)
+                        $("<button>").addClass("btn btn-primary").text("Vedi Percorso")
+                        .on("click",function () {
+                            let map = caricaMappa();
+
+                            let destinazione = new google.maps.LatLng(parseFloat(perizia.coords.lat), parseFloat(perizia.coords.lng));
+
+                            let directionsService = new google.maps.DirectionsService();
+                            let routesOptions = {
+                            origin: sede,
+                            destination: destinazione,
+                            travelMode: google.maps.TravelMode.DRIVING, // default
+                            provideRouteAlternatives:true, // default=false
+                            avoidTolls:false}
+
+                            let renderOptions = {
+                                polylineOptions: {
+                                strokeColor : "#3498db", // colore del percorso
+                                strokeWeight : 6, // spessore
+                                zIndex : 100 // posizionamento
+                                }
+                            }
+
+                            directionsService.route(routesOptions, function(directionsRoutes){
+                                if (directionsRoutes.status == google.maps.DirectionsStatus.OK)
+                                {
+                                    let directionsRenderer = new google.maps.DirectionsRenderer(renderOptions)
+                                    directionsRenderer.setMap(map) // Collego il renderer alla mappa
+                                    directionsRenderer.setRouteIndex(0)
+                                    directionsRenderer.setDirections(directionsRoutes)
+                                }
+                                let tempo = google.maps.geometry.spherical.computeDistanceBetween (sede, destinazione);
+                                alert("Tempo stimato: "+Math.floor(tempo/60) +" minuti")
+                                });
+                                
+                                
+ 
+                                
+                            
+                        }).appendTo(_td)
                     }
                 })
+        
     }
+
 
     
 });

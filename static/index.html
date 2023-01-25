@@ -20,19 +20,19 @@
         <h2 class="text-center">Admin Portal</h2>
         <div class="row">
             <label for="user">Username </label>
-            <input type="text" placeholder="Enter Username" class="form-control">
+            <input type="text" placeholder="Inserisci Username" class="form-control">
         </div>
         <div class="row mt-4">
             <label for="pw">Password </label>
-            <input type="password" placeholder="Enter Password" class="form-control">
+            <input type="password" placeholder="Inserisci Password" class="form-control">
         </div>
         <div class="mt-3 form-check">
-            <label for="showPw" class="form-check-label">Show Password </label>
+            <label for="showPw" class="form-check-label">Mostra Password </label>
             <input type="checkbox" class="form-check-input">
         </div>
         <div class="row mt-4 alert alert-dismissible alert-danger">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <label>Incorrect password</label>
+            <label>Password non corretta</label>
         </div>
         <div class="row mt-4 text-center">
             <button class="btn btn-primary">Login</button>
@@ -73,7 +73,7 @@
                     </svg></button>
                 <button class="btn btn-primary" style="margin-left:10px;" id="btnAggiungi">Aggiungi</button>
 
-                <!--Modal event-->
+                <!--Modal event aggiungi utente-->
                     <div class="modal expanded" tabindex="-1" role="dialog" id="formUtente">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -112,7 +112,7 @@
 
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
 
             <!---Tabella-->
@@ -138,20 +138,20 @@
         </div>
          <!--Perizie tab-->
         <div> 
-            <div class="container mt-3 d-flex flex-row">
+            <div class="container mt-3 d-flex flex-row" id="divRicercaPerizia">
                 
                 <input type="text" placeholder="Ricerca Utente" class="form-control">
                 <button class="btn btn-primary" style="margin-left: 5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg></button>
-                <button class="btn btn-primary" style="margin-left:10px;" id="btnMappa">Visualizza Mappa</button>
+                <button class="btn btn-primary" style="margin-left:10px;" id="btnMappa">Mappa</button>
 
-                <!--Modal event-->
-                    <div class="modal expanded" tabindex="-1" role="dialog" id="formMappa">
+                <!--Modal event mappa-->
+                <div class="modal expanded" tabindex="-1" role="dialog" id="formMappa">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" id="m">
                             <div class="modal-header">
-                                <h5 class="modal-title">Mappa delle perizie</h5>
+                                <h5 class="modal-title">Mappa</h5>
                                 <button type="button" id="btnCloseModalMappa"class="btn close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -164,6 +164,47 @@
                     </div>
 
                 </div>
+
+                <!--Modal event perizia-->
+                <div class="modal expanded" tabindex="-1" role="dialog" id="formPerizia">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Dati Perizia</h5>
+                                <button type="button" id="btnCloseModalPer"class="btn close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="mdlModificaPerizia">
+                                <table>
+                                    <tr>
+                                        <td><label>ID :&nbsp;</label></td>
+                                        <td><label>ID :&nbsp;</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Username :&nbsp;</label></td>
+                                        <td> <input type="text" placeholder="Username" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Data :&nbsp;</label></td>
+                                        <td><input type="text" placeholder="Data" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Coordinate :&nbsp;</label></td>
+                                        <td><input type="text" placeholder="Coordinate (separate da spazio(" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Descrizione :&nbsp;</label></td>
+                                        <td><input type="text" placeholder="Descrizione" class="form-control"></td>
+                                    </tr>
+                                    
+                                </table>
+                                <button class="btn btn-primary mt-3" id="btnConfermaPerizia">Conferma</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
 
             </div>
 
@@ -179,9 +220,8 @@
                             <th width="10%">Data</th>
                             <th width="10%">Coordinate</th>
                             <th width="5%">Descrizione</th>
-                            <th width="10%"></th>
                             <th width="5%"></th>
-                            <th width="10%"></th>
+                            <th width="5%"></th>
                         </tr>
                     </thead>
                     <tbody>
